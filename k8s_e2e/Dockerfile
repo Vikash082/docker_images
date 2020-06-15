@@ -17,6 +17,10 @@ RUN cd kubernetes && \
 RUN cd && mkdir e2ebin && mkdir -p ~/.kube/ && mkdir logs && \
         cp /kubernetes/_output/local/bin/linux/amd64/e2e.test e2ebin/
 
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl -o /kubectl \
+        && chmod +x kubectl \
+        && mv kubectl /usr/local/bin/
+
 ENV KUBECONFIG=/root/.kube/config
 
 CMD /root/e2ebin/e2e.test
